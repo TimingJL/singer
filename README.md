@@ -109,3 +109,88 @@ class SongsController < ApplicationController
 end
 ```
 
+Then we need to create our song model.
+```console
+$ rails g model Song title:string description:text user_id:integer
+$ rake db:migrate
+```
+
+
+In `app/views/songs`, let's create some file
+1. _form.html.haml
+2. new.html.haml
+3. edit.html.haml
+4. show.html.haml
+
+In `app/views/songs/_form.html.haml`
+```haml
+= simple_form_for @song, html: { multipart: true } do |f|
+	= f.input :title, input_html: { class: 'form-control' }
+	= f.button :submit, class: "btn btn-primary"
+```
+
+In `app/views/songs/new.html.haml`
+```haml
+%h1 New Song
+
+= render 'form'
+
+%br/
+
+=link_to "Back", root_path, class: "btn btn-default"
+```
+
+In `app/views/songs/edit.html.haml`
+```haml
+%h1 Edit Song
+
+= render 'form'
+
+%br/
+
+=link_to "Back", root_path, class: "btn btn-default"
+```
+
+In `app/views/songs/show.html.haml`
+```haml
+%h1= @song.title
+
+=link_to "Back", root_path, class: "btn btn-default"
+=link_to "Edit", edit_song_path, class: "btn btn-default"
+=link_to "Delete", song_path, method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-default"
+```
+
+In `app/views/songs/index.html.haml`
+```haml
+- @song.each do |song|
+	%h2= link_to song.title, song
+=link_to "New", new_song_path, class: "btn btn-default"
+```
+
+# Cacoon
+
+Then, let's add cacoon         
+So in `app/assets/application.js`, we add `//= require cocoon` so it compiles to the asset pipeline.
+```js
+//= require jquery
+//= require jquery_ujs
+//= require cocoon
+//= require turbolinks
+//= require_tree 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
