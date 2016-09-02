@@ -1,3 +1,7 @@
-- @song.each do |song|
-	%h2= link_to song.title, song
+#songs.transitions-enabled
+	- @song.each do |song|
+		.box.panel.panel-default	
+			=link_to (image_tag song.links.first.image, height: '250', width: '350'), song
+			.panel-body
+				%h2= link_to song.title, song
 =link_to "New", new_song_path, class: "btn btn-default"
