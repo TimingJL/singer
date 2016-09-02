@@ -230,6 +230,7 @@ In our `app/views/songs/_new_form.html.haml` partial we'd write:
 				- @song.errors.full_messages.each do |msg|
 					%li= msg
 	= f.input :title, input_html: { class: 'form-control' }
+	= f.button :submit, class: "btn btn-primary"
 
 = link_to "Back", root_path, class: "btn btn-default"
 ```
@@ -302,8 +303,11 @@ In our app/views/songs/index.html.haml, we need to add:
 ```haml
 #songs.transitions-enabled
 	- @song.each do |song|
-		.box.panel.panel-default	
-			=link_to (image_tag song.links.first.image, height: '250', width: '350'), song
+		.box.panel.panel-default
+			- if song.links.present?
+				=link_to (image_tag song.links.first.image, height: '250', width: '350'), song
+			- else
+				=link_to song.title, song
 			.panel-body
 				%h2= link_to song.title, song
 =link_to "New", new_song_path, class: "btn btn-default"
