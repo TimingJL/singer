@@ -26,6 +26,14 @@ class SongsController < ApplicationController
 
     def update
         if @song.update(song_params)
+            @song.links.each do |link|
+                object = LinkThumbnailer.generate(link.link)
+                link.title = object.title
+                link.favicon = object.favicon
+                link.description = object.description
+                link.image = object.images.first.src.to_s
+                link.save
+            end            
             redirect_to @song
         else
             render 'edit'
@@ -40,7 +48,7 @@ class SongsController < ApplicationController
     private
 
     def song_params
-        params.require(:song).permit(:title, :description, links_attributes: [:id, :link, :embed, :_destroy])
+        params.require(:song).permit(:title, links_attributes: [:id, :link, :embed, :_destroy])
     end    
 
     def find_song
@@ -52,6 +60,6 @@ class SongsController < ApplicationController
     end
     
     def link_params
-        params.require(:link).permit(:link)
+        params.require(:link).permit(:link, :embed)
     end    
 end

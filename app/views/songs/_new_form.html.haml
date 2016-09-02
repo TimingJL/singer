@@ -1,0 +1,12 @@
+= simple_form_for @song, html: { multipart: true } do |f|
+	- if @song.errors.any?
+		#errors
+			%p
+				= @song.errors.count
+				Prevented this song froms saving
+			%ul
+				- @song.errors.full_messages.each do |msg|
+					%li= msg
+	= f.input :title, input_html: { class: 'form-control' }
+
+= link_to "Back", root_path, class: "btn btn-default"

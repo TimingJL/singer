@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  link: MyString
+  favicon: MyString
+  description: MyText
+  image: MyString
+  embed: MyString
+  song_id: 1
+  song: one
+
+two:
+  title: MyString
+  link: MyString
+  favicon: MyString
+  description: MyText
+  image: MyString
+  embed: MyString
+  song_id: 1
+  song: two
